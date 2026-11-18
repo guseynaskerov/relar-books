@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#092F28">
+  <meta name="description" content="RELAR BOOKS — книжный магазин с подборкой мировой художественной литературы.">
+  <title>RELAR BOOKS — книжный магазин</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="./script.js" defer></script>
+</head>
+<body id="top">
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#top" aria-label="RELAR BOOKS, на главную">
+        <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 7c-3-3-7-3-9-2v13c3-1 6 0 9 2 3-2 6-3 9-2V5c-2-1-6-1-9 2Zm0 0v13M6 8l3 1m-3 3 3 1m6-4 3-1m-3 5 3-1"/></svg></span>
+        <span>RELAR<span class="brand-secondary"> BOOKS</span></span>
+      </a>
+      <nav aria-label="Основная навигация"><a class="nav-link" href="#catalog">Каталог</a></nav>
+      <button class="cart-trigger" id="open-cart" type="button" aria-haspopup="dialog">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 8h14l1 13H4L5 8Z M9 9V6a3 3 0 0 1 6 0v3"/></svg>
+        <span class="cart-label">Корзина</span><span class="cart-count" id="cart-count">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <p class="kicker">Мировая литература</p>
+          <h1 id="hero-title">Истории, к&nbsp;которым<br>возвращаются</h1>
+          <p class="hero-description">От любимой классики до современных романов. Найдите книгу, которую захочется оставить на полке.</p>
+          <a class="primary-button" href="#catalog">Смотреть каталог <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="container catalog" id="catalog" aria-labelledby="catalog-title">
+      <div class="catalog-header">
+        <div>
+          <h2 id="catalog-title">Каталог книг</h2>
+          <p class="result-count" id="result-count" role="status"></p>
+        </div>
+        <div class="search-field" role="search">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/></svg>
+          <label class="visually-hidden" for="book-search">Поиск по названию</label>
+          <input type="search" id="book-search" placeholder="Поиск по названию" autocomplete="off">
+          <button class="icon-button clear-search" id="clear-search" type="button" aria-label="Очистить поиск" hidden>×</button>
+        </div>
+      </div>
+      <div class="book-grid" id="book-grid"></div>
+      <div class="empty-catalog" id="empty-catalog" hidden>
+        <h3>Книги не найдены</h3>
+        <p>Попробуйте ввести другое название.</p>
+      </div>
+      <noscript><p>Включите JavaScript, чтобы просматривать каталог и пользоваться корзиной.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <a class="brand" href="#top">RELAR<span class="brand-secondary"> BOOKS</span></a>
+      <p>Демонстрационный книжный магазин</p>
+    </div>
+  </footer>
+
+  <dialog class="cart-dialog" id="cart" aria-labelledby="cart-title">
+    <div class="cart-panel">
+      <div class="cart-heading">
+        <h2 id="cart-title">Корзина</h2>
+        <button class="icon-button close-cart" id="close-cart" type="button" aria-label="Закрыть корзину" autofocus>×</button>
+      </div>
+      <div class="cart-empty" id="cart-empty">
+        <p>В корзине пока пусто.</p>
+        <button class="primary-button" id="continue-shopping" type="button">К каталогу</button>
+      </div>
+      <ul class="cart-items" id="cart-items" aria-label="Книги в корзине"></ul>
+      <div class="cart-summary" id="cart-summary" hidden>
+        <div class="cart-total" role="status"><span>Итого</span><strong id="cart-total"></strong></div>
+        <p>Демонстрационный магазин. Оплата недоступна.</p>
+      </div>
+    </div>
+  </dialog>
+  <div class="toast" id="toast" role="status" aria-atomic="true"></div>
+
+  <template id="book-template">
+    <article class="book-card">
+      <div class="book-stage" aria-hidden="true">
+        <div class="book-cover">
+          <span class="cover-author"></span>
+          <span class="cover-motif"></span>
+          <span class="cover-title"></span>
+        </div>
+      </div>
+      <div class="book-details">
+        <h3></h3>
+        <p class="book-author"></p>
+        <div class="book-actions">
+          <strong class="book-price"></strong>
+          <button class="add-book" type="button"><span aria-hidden="true">+</span> В корзину</button>
+        </div>
+      </div>
+    </article>
+  </template>
+
+  <template id="cart-item-template">
+    <li class="cart-item">
+      <span class="cart-cover" aria-hidden="true"></span>
+      <div class="cart-book-info">
+        <h3></h3>
+        <p class="cart-line-price"></p>
+        <div class="quantity">
+          <button class="icon-button" type="button" data-action="decrease">−</button>
+          <span class="quantity-value"></span>
+          <button class="icon-button" type="button" data-action="increase">+</button>
+        </div>
+      </div>
+      <button class="icon-button remove-book" type="button" data-action="remove">×</button>
+    </li>
+  </template>
+</body>
+</html>
